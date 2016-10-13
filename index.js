@@ -75,9 +75,7 @@ $${camelBlock} = ()
 declare($${camelBlock}, ${block})
 
 $${camelBlock}Params = ${
-	parent ? 
-		`fork($${camelParent}Params, ${paramsBlock})` :
-		paramsBlock
+	parent ? `fork($${camelParent}Params, ${paramsBlock})` : paramsBlock
 }
 if file-exists("${block}_*.styl")
 	@import "${block}_*.styl"
