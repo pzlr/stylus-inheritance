@@ -1,0 +1,29 @@
+{
+  "name": "@pzlr/stylus-inheritance-loader",
+  "version": "0.1.0",
+  "description": "Preloader for *.interface.styl files to reduce LOC number needed for inheritance",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "trikadin@mail.ru",
+  "license": "MIT",
+  "dependencies": {
+    "escaper": "^2.4.31",
+    "sugar": "^2.0.1"
+  },
+  "devDependencies": {
+    "jscs": "^3.0.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pzlr/stylus-inheritance-loader.git"
+  },
+  "keywords": [
+    "pzlr"
+  ],
+  "bugs": {
+    "url": "https://github.com/pzlr/stylus-inheritance-loader/issues"
+  },
+  "homepage": "https://github.com/pzlr/stylus-inheritance-loader#readme"
+}
