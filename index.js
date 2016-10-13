@@ -66,40 +66,33 @@ module.exports = function (source) {
 
 	let fullDefineString;
 
-	const camelBlock = Sugar.String.camelize(block, false);
+	const
+		camelBlock = Sugar.String.camelize(block, false),
+		camelParent = Sugar.String.camelize(parent || '', false);
 
-	if (parent) {
-		const camelParent = Sugar.String.camelize(parent, false);
-
-		fullDefineString = `
+	fullDefineString = `
 $${camelBlock} = ()
 declare($${camelBlock}, ${block})
 
-$${camelBlock}Params = fork($${camelParent}Params, ${paramsBlock})
-
+$${camelBlock}Params = ${
+	parent ? 
+		`fork($${camelParent}Params, ${paramsBlock})` :
+		paramsBlock
+}
 if file-exists("${block}_*.styl")
 	@import "${block}_*.styl"
 
 ${block}($p)
 	$p = fork($${camelBlock}Params, $p)
 
-	extends($${camelParent}, $p)
+	${ parent ? `extends($${camelParent}, $p)` : ''}
 `;
 
-	} else {
-		fullDefineString = `
-$${camelBlock} = ()
-declare($${camelBlock}, ${block})
+	fullDefineString = fullDefineString
+		.split('\n')
+		.filter((s) => !Sugar.String.isBlank(s))
+		.join('\n');
 
-$${camelBlock}Params = ${paramsBlock}
-
-if file-exists("${block}_*.styl")
-	@import "${block}_*.styl"
-
-${block}($p)
-	$p = fork($${camelBlock}Params, $p)
-`;
-	}
-
-	return source.replace(defineString, fullDefineString);
+	return source
+		.replace(defineString, fullDefineString);
 };
