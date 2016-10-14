@@ -1,7 +1,7 @@
 {
-  "name": "@pzlr/stylus-inheritance-replacer",
+  "name": "@pzlr/stylus-inheritance",
   "version": "0.1.0",
-  "description": "Preloader for *.interface.styl files to reduce LOC number needed for inheritance",
+  "description": "Replacer for Monic which makes magic of inheritance for Stylus",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
