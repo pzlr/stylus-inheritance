@@ -40,7 +40,7 @@ function collectBlock(str) {
  * @param {string} source
  * @return {string}
  */
-module.exports = function (source) {
+function expandDefine(source) {
 	const
 		define = defineReg.exec(source);
 
@@ -77,8 +77,8 @@ declare($${camelBlock}, ${block})
 $${camelBlock}Params = ${
 	parent ? `fork($${camelParent}Params, ${paramsBlock})` : paramsBlock
 }
-if file-exists("${block}_*.styl")
-	@import "${block}_*.styl"
+
+@import "${block}_*.styl"
 
 ${block}($p)
 	$p = fork($${camelBlock}Params, $p)
@@ -93,4 +93,21 @@ ${block}($p)
 
 	return source
 		.replace(defineString, fullDefineString);
+}
+
+module.exports = (source, file) => {
+	if (!/\.styl$/.test(file)) {
+		return text;
+	}
+
+	if (/\.interface.styl$/.test(file)) {
+		while (defineReg.test(source)) {
+			source = expandDefine(source);
+		}
+	}
+
+	return source.replace(
+		/@import\s+"((?:\.{1,2}\/|[igbp]-[a-z][a-z0-9-]*)[^"]*)"/gm,
+		(str, path) => `//#include ${path}`
+	);
 };

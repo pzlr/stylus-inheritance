@@ -1,5 +1,5 @@
 {
-  "name": "@pzlr/stylus-inheritance-loader",
+  "name": "@pzlr/stylus-inheritance-replacer",
   "version": "0.1.0",
   "description": "Preloader for *.interface.styl files to reduce LOC number needed for inheritance",
   "main": "index.js",
