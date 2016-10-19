@@ -6,7 +6,7 @@ const
 
 const
 	paramsStartReg = /^\s*\$p\s*=\s*(?=\{)/m,
-	defineReg = /^([bigp]-[a-z][a-z0-9-]*)(?:\s+extends\s+([bigp]-[a-z][a-z0-9-]*))?$/m;
+	defineReg = /^([bigp]-[a-z0-9][a-z0-9-]*)(?:\s+extends\s+([bigp]-[a-z0-9][a-z0-9-]*))?$/m;
 
 function collectBlock(str) {
 	str = escaper.replace(str);
@@ -107,7 +107,7 @@ module.exports = (source, file) => {
 	}
 
 	return source.replace(
-		/@import\s+"((?:\.{1,2}\/|[igbp]-[a-z][a-z0-9-]*)[^"]*)"/gm,
+		/@import\s+"((?:\.{1,2}\/|[igbp]-[a-z0-9][a-z0-9-]*)[^"]*)"/gm,
 		(str, path) => `//#include ${path}`
 	);
 };
