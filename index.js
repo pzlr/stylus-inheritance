@@ -18,7 +18,7 @@ const
 function getBlockParams(str) {
 	str = escaper.replace(str);
 
-	let res = '{\n\tselector: "&",\n';
+	let res = '{';
 	let balance = 1;
 
 	for (let i = 1; (i < str.length) && balance; ++i) {
@@ -28,10 +28,6 @@ function getBlockParams(str) {
 			++balance;
 
 		} else if (char === '}') {
-			if (res[res.length - 1] === ',') {
-				res = res.slice(0, -1);
-			}
-
 			--balance;
 		}
 
@@ -64,6 +60,11 @@ function expandDefine(source, isMod) {
 		[defineString, block, parent] = define,
 		paramsStartSearch = paramsStartReg.exec(source);
 
+	function addToParams(val) {
+		val = `\n\t${val}${paramsBlock.length > 2 ? ',' : ''}\n`;
+		paramsBlock = paramsBlock[0] + val + paramsBlock.slice(1);
+	}
+
 	let paramsBlock;
 	if (paramsStartSearch) {
 		const [start] = paramsStartSearch;
@@ -71,16 +72,17 @@ function expandDefine(source, isMod) {
 		source = source.replace(start + paramsBlock, '');
 
 	} else {
-		paramsBlock = '{\n\tselector: "&"\n}';
+		paramsBlock = '{}';
 	}
+
+	addToParams('selector: "&"');
 
 	const
 		mod = isMod && block.replace(/[^_]+/, ''),
 		modName = mod && mod.split('_')[1];
 
 	if (isMod) {
-		const tmp = `\n\t${modName}: ${block.replace(/[^_]+/, '')}`;
-		paramsBlock = paramsBlock[0] + tmp + (paramsBlock.length > 2 ? ',' : '') + paramsBlock.slice(1);
+		addToParams(`${modName}: ${block.replace(/[^_]+/, '')}`);
 	}
 
 	const
@@ -129,7 +131,7 @@ ${block}($p)
  */
 module.exports = (source, file) => {
 	if (!/\.styl$/.test(file)) {
-		return source;
+		return text;
 	}
 
 	if (/(?:\.interface|(_[a-z0-9-]+_[a-z0-9-]+)).styl$/.test(file)) {
