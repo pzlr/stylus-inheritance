@@ -110,7 +110,7 @@ ${block}($p)
 	source = source.replace(/_\//g, '{$selector}');
 
 	if (isMod) {
-		source = source.replace(new RegExp(`\\/(${modName})\\b`, 'g'), (sstr, $1) => `&{$${$1}}`);
+		source = source.replace(new RegExp(`\\/(${modName})\\b`, 'g'), (sstr, $1) => `{$selector}{$${$1}}`);
 	}
 
 	const
@@ -129,7 +129,7 @@ ${block}($p)
  */
 module.exports = (source, file) => {
 	if (!/\.styl$/.test(file)) {
-		return text;
+		return source;
 	}
 
 	if (/(?:\.interface|(_[a-z0-9-]+_[a-z0-9-]+)).styl$/.test(file)) {
