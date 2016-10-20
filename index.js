@@ -107,10 +107,10 @@ ${block}($p)
 		.filter((s) => !Sugar.String.isBlank(s))
 		.join('\n');
 
-	source = source.replace(/_\//g, '{$selector}');
+	source = source.replace(/_\//g, '{$p.selector}');
 
 	if (isMod) {
-		source = source.replace(new RegExp(`\\/(${modName})\\b`, 'g'), (sstr, $1) => `{$selector}{$${$1}}`);
+		source = source.replace(new RegExp(`\\/(${modName})\\b`, 'g'), '{$p.selector}{$p.$1}');
 	}
 
 	const
