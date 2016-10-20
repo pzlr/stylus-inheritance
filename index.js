@@ -6,13 +6,19 @@ const
 
 const
 	paramsStartReg = /^\s*\$p\s*=\s*(?=\{)/m,
-	defineReg = /^([bigp]-[a-z0-9][a-z0-9-]*)(?:\s+extends\s+([bigp]-[a-z0-9][a-z0-9-]*))?$/m;
+	defineReg = /^([bigp]-[a-z0-9][a-z0-9-_]*)(?:\s+extends\s+([bigp]-[a-z0-9][a-z0-9-_]*))?$/m,
+	varsReg = /\$p\.[.\w$]+/g;
 
-function collectBlock(str) {
+/**
+ * Returns block parameters from a string
+ *
+ * @param str - source string
+ * @returns {string}
+ */
+function getBlockParams(str) {
 	str = escaper.replace(str);
 
-	let res = '{';
-
+	let res = '{\n\tselector: "&",\n';
 	let balance = 1;
 
 	for (let i = 1; (i < str.length) && balance; ++i) {
@@ -22,6 +28,10 @@ function collectBlock(str) {
 			++balance;
 
 		} else if (char === '}') {
+			if (res[res.length - 1] === ',') {
+				res = res.slice(0, -1);
+			}
+
 			--balance;
 		}
 
@@ -36,11 +46,13 @@ function collectBlock(str) {
 }
 
 /**
+ * Expands block declaration from a source text
  *
  * @param {string} source
- * @return {string}
+ * @param {boolean=} [isMod]
+ * @returns {string}
  */
-function expandDefine(source) {
+function expandDefine(source, isMod) {
 	const
 		define = defineReg.exec(source);
 
@@ -48,61 +60,82 @@ function expandDefine(source) {
 		return source;
 	}
 
-	const [defineString, block, parent] = define;
+	const
+		[defineString, block, parent] = define,
+		paramsStartSearch = paramsStartReg.exec(source);
 
 	let paramsBlock;
-
-	const paramsStartSearch = paramsStartReg.exec(source);
-
 	if (paramsStartSearch) {
 		const [start] = paramsStartSearch;
-
-		paramsBlock = collectBlock(source.substr(paramsStartSearch.index + start.length));
+		paramsBlock = getBlockParams(source.substr(paramsStartSearch.index + start.length));
 		source = source.replace(start + paramsBlock, '');
 
 	} else {
-		paramsBlock = '{}';
+		paramsBlock = '{\n\tselector: "&"\n}';
 	}
 
-	let fullDefineString;
+	const
+		mod = isMod && block.replace(/[^_]+/, ''),
+		modName = mod && mod.split('_')[1];
+
+	if (isMod) {
+		const tmp = `\n\t${modName}: ${block.replace(/[^_]+/, '')}`;
+		paramsBlock = paramsBlock[0] + tmp + (paramsBlock.length > 2 ? ',' : '') + paramsBlock.slice(1);
+	}
 
 	const
 		camelBlock = Sugar.String.camelize(block, false),
 		camelParent = Sugar.String.camelize(parent || '', false);
 
-	fullDefineString = `
-$${camelBlock} = ()
-declare($${camelBlock}, ${block})
+	let fullDefineString = `
+${!isMod ? `$${camelBlock} = ()` : ''}
+declare($${isMod ? camelParent : camelBlock}, ${block})
 
 $${camelBlock}Params = ${
 	parent ? `fork($${camelParent}Params, ${paramsBlock})` : paramsBlock
 }
 
-@import "${block}_*.styl"
+${!isMod ? `@import "${block}_*.styl"` : ''}
 
 ${block}($p)
 	$p = fork($${camelBlock}Params, $p)
-
-	${ parent ? `extends($${camelParent}, $p)` : ''}
+	${parent && !isMod ? `extends($${camelParent}, $p)` : ''}
 `;
 
 	fullDefineString = fullDefineString
-		.split('\n')
+		.split(/\r?\n|\r/)
 		.filter((s) => !Sugar.String.isBlank(s))
 		.join('\n');
 
-	return source
-		.replace(defineString, fullDefineString);
+	source = source.replace(/_\//g, '{$selector}');
+
+	if (isMod) {
+		source = source.replace(new RegExp(`\\/(${modName})\\b`, 'g'), (sstr, $1) => `&{$${$1}}`);
+	}
+
+	const
+		vars = {};
+
+	source = source.replace(varsReg, (val) => vars[val] = val.replace(/\./g, '__'));
+	Object.keys(vars).sort().forEach((key) => fullDefineString += `\n\t${vars[key]} = ${key}`);
+
+	return source.replace(defineString, fullDefineString);
 }
 
+/**
+ * @param {string} source
+ * @param {string} file
+ * @returns {string}
+ */
 module.exports = (source, file) => {
 	if (!/\.styl$/.test(file)) {
 		return text;
 	}
 
-	if (/\.interface.styl$/.test(file)) {
+	if (/(?:\.interface|(_[a-z0-9-]+_[a-z0-9-]+)).styl$/.test(file)) {
+		const isMod = Boolean(RegExp.$1);
 		while (defineReg.test(source)) {
-			source = expandDefine(source);
+			source = expandDefine(source, isMod);
 		}
 	}
 
