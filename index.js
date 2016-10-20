@@ -97,7 +97,7 @@ ${block}($p)
 
 module.exports = (source, file) => {
 	if (!/\.styl$/.test(file)) {
-		return text;
+		return source;
 	}
 
 	if (/\.interface.styl$/.test(file)) {
