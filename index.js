@@ -75,8 +75,6 @@ function expandDefine(source, isMod) {
 		paramsBlock = '{}';
 	}
 
-	addToParams('selector: "&"');
-
 	const
 		mod = isMod && block.replace(/[^_]+/, ''),
 		modName = mod && mod.split('_')[1];
@@ -109,10 +107,8 @@ ${block}($p)
 		.filter((s) => !Sugar.String.isBlank(s))
 		.join('\n');
 
-	source = source.replace(/_\//g, '{$p.selector}');
-
 	if (isMod) {
-		source = source.replace(new RegExp(`\\/(${modName})\\b`, 'g'), '{$p.selector}{$p.$1}');
+		source = source.replace(new RegExp(`\\/(${modName})\\b`, 'g'), '&{$p.$1}');
 	}
 
 	const
