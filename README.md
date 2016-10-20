@@ -6,6 +6,8 @@ Preloader for *.interface.styl files to reduce LOC number needed for inheritance
 ## Examples
 ### Block
 
+**/i-block.styl**
+
 ```styl
 @import "../i-base/i-base.interface.styl"
 
@@ -22,6 +24,8 @@ i-block extends i-base
 ```
 
 ### Modifier
+
+**/i-block_theme_light.styl**
 
 ```styl
 $p = {
