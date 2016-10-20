@@ -1,6 +1,6 @@
 {
   "name": "@pzlr/stylus-inheritance",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Replacer for Monic which makes magic of inheritance for Stylus",
   "main": "index.js",
   "scripts": {
@@ -14,6 +14,9 @@
   },
   "devDependencies": {
     "jscs": "^3.0.7"
+  },
+  "peerDependencies": {
+    "monic": "^2.0.0"
   },
   "repository": {
     "type": "git",
