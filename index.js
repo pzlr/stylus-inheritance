@@ -12,8 +12,8 @@ const
 /**
  * Returns block parameters from a string
  *
- * @param str - source string
- * @returns {string}
+ * @param {string} str
+ * @return {string}
  */
 function getBlockParams(str) {
 	str = escaper.replace(str);
@@ -46,7 +46,7 @@ function getBlockParams(str) {
  *
  * @param {string} source
  * @param {boolean=} [isMod]
- * @returns {string}
+ * @return {string}
  */
 function expandDefine(source, isMod) {
 	const
@@ -123,7 +123,7 @@ ${block}($p)
 /**
  * @param {string} source
  * @param {string} file
- * @returns {string}
+ * @return {string}
  */
 module.exports = (source, file) => {
 	if (!/\.styl$/.test(file)) {
