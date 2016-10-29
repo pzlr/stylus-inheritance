@@ -13,7 +13,8 @@
     "sugar": "^2.0.1"
   },
   "devDependencies": {
-    "jscs": "^3.0.7"
+    "babel-eslint": "^7.0.0",
+    "eslint": "^3.8.1"
   },
   "peerDependencies": {
     "monic": "^2.0.0"
