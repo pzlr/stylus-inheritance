@@ -1,13 +1,28 @@
 {
   "name": "@pzlr/stylus-inheritance",
-  "version": "1.0.0",
   "description": "Replacer for Monic which makes magic of inheritance for Stylus",
+  "homepage": "https://github.com/pzlr/stylus-inheritance-loader#readme",
   "main": "index.js",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": {
+    "name": "trikadin",
+    "email": "trikadin@mail.ru",
+    "url": "https://github.com/trikadin"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pzlr/stylus-inheritance-loader.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pzlr/stylus-inheritance-loader/issues"
+  },
+  "keywords": [
+    "pzlr"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "trikadin@mail.ru",
-  "license": "MIT",
   "dependencies": {
     "escaper": "^2.4.31",
     "sugar": "^2.0.1"
@@ -17,17 +32,6 @@
     "eslint": "^3.8.1"
   },
   "peerDependencies": {
-    "monic": "^2.0.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/pzlr/stylus-inheritance-loader.git"
-  },
-  "keywords": [
-    "pzlr"
-  ],
-  "bugs": {
-    "url": "https://github.com/pzlr/stylus-inheritance-loader/issues"
-  },
-  "homepage": "https://github.com/pzlr/stylus-inheritance-loader#readme"
+    "monic": "^2.3.15"
+  }
 }
