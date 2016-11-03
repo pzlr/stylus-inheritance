@@ -32,6 +32,6 @@
     "eslint": "^3.8.1"
   },
   "peerDependencies": {
-    "monic": "^2.3.15"
+    "monic-loader": "^2.2.5"
   }
 }
