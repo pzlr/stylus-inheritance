@@ -92,10 +92,10 @@ ${!isMod ? `$${camelBlock} = ()` : ''}
 declare($${isMod ? camelParent : camelBlock}, ${block})
 
 $${camelBlock}Params = ${
-	parent ? `fork($${camelParent}Params, ${paramsBlock})` : paramsBlock
-}
+		parent ? `fork($${camelParent}Params, ${paramsBlock})` : paramsBlock
+		}
 
-${!isMod ? `@import "${block}_*.styl"` : ''}
+${!isMod ? `//#include ${block}_*.styl\n` : ''}
 
 ${block}($p)
 	$p = fork($${camelBlock}Params, $p)
@@ -120,6 +120,9 @@ ${block}($p)
 	return source.replace(defineString, fullDefineString);
 }
 
+let
+	cache = new Map();
+
 /**
  * @param {string} source
  * @param {string} file
@@ -130,15 +133,24 @@ module.exports = (source, file) => {
 		return source;
 	}
 
-	if (/(?:\.interface|(_[a-z0-9-]+_[a-z0-9-]+)).styl$/.test(file)) {
-		const isMod = Boolean(RegExp.$1);
-		while (defineReg.test(source)) {
-			source = expandDefine(source, isMod);
-		}
+	if (cache.has(source)) {
+		return cache.get(source);
 	}
 
-	return source.replace(
+	if (cache.size > 1e3) {
+		cache = new Map();
+	}
+
+	const isMod = /(_[a-z0-9-]+_[a-z0-9-]+).styl$/.test(file);
+	while (defineReg.test(source)) {
+		source = expandDefine(source, isMod);
+	}
+
+	let tmp;
+	cache.set(source, tmp = source.replace(
 		/@import\s+"((?:\.{1,2}\/|[igbp]-[a-z0-9][a-z0-9-]*)[^"]*)"/gm,
 		(str, path) => `//#include ${path}`
-	);
+	));
+
+	return tmp;
 };
