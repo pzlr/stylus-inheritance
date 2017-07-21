@@ -102,7 +102,7 @@ if lookup('${blockVar}') == null
 	${blockI} = 0
 	${blockPartials} = ()
 	${!isMod ? `${blockExt} = '${parent ? parentVar : ''}'` : ''}
-	declare(${isMod ? parentVar : blockVar}, ${block})
+	declare(${isMod ? parentVar : blockVar}, ${block} ${blockPartials})
 
 else
 	${blockI} += 1
@@ -123,7 +123,7 @@ ${!isMod ? `//#include ${block}_*.styl\n` : ''}
 
 _${block}($p)
 	$p = fork(${paramsVar}, $p)
-	${parent && !isMod ? `extends(${parentVar}, $p)` : ''}
+	${parent && !isMod ? `extends(${parentVar}, $p, ${parentVar}PartialList)` : ''}
 `;
 
 	/* eslint-enable indent */
