@@ -85,6 +85,7 @@ function expandDefine(source, isMod) {
 	}
 
 	const
+		id = Math.random().toString().split('.')[1],
 		blockVar = `$${String.camelize(block, false)}`,
 		parentVar = `$${String.camelize(parent || '', false)}`;
 
@@ -122,9 +123,9 @@ if lookup('${paramsVar}') == null {
 
 ${!isMod ? `//#include ${block}_*.styl\n` : ''}
 
-_${block}($p)
+_${block}-${id}($p)
 	$p = fork(${paramsVar}, $p)
-	${parent && !isMod ? `extends(${parentVar}, $p, ${parentVar}PartialList)` : ''}
+	${parent && !isMod ? `extends(${parentVar}, $p)` : ''}
 `;
 
 	/* eslint-enable indent */
@@ -148,7 +149,7 @@ _${block}($p)
 		source.replace(defineString, fullDefineString)
 	}
 
-define('${block}' + (${blockI} > 1 ? ${blockI} : ''), _${block})
+define('${block}' + (${blockI} > 0 ? ${blockI} : ''), _${block}-${id})
 `;
 }
 
