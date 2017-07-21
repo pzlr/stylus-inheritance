@@ -101,7 +101,7 @@ if lookup('${blockVar}') == null
 	${!isMod ? `${blockVar} = ()` : ''}
 	${blockI} = 0
 	${blockPartials} = ()
-	push(${blockPartials}, _${block})
+	push(${blockPartials}, '${block}')
 	${!isMod ? `${blockExt} = '${parent ? parentVar : ''}'` : ''}
 	push(${isMod ? parentVar : blockVar}, ${blockPartials})
 
