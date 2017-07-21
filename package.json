@@ -3,7 +3,7 @@
   "description": "Replacer for Monic which makes magic of inheritance for Stylus",
   "homepage": "https://github.com/pzlr/stylus-inheritance-loader#readme",
   "main": "index.js",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "license": "MIT",
   "author": {
     "name": "Konstantin Kutsyllo",

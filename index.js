@@ -104,7 +104,7 @@ if lookup('${blockVar}') == null
 	${blockPartials} = ()
 	push(${blockPartials}, '${block}')
 	${!isMod ? `${blockExt} = '${parent ? parentVar : ''}'` : ''}
-	push(${isMod ? parentVar : blockVar}, ${blockPartials})
+	push(${isMod ? parentVar : blockVar}, '${blockPartials}')
 
 else
 	${blockI} += 1
