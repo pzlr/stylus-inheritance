@@ -1,12 +1,13 @@
 'use strict';
 
 const
-	Sugar = require('sugar'),
-	escaper = require('escaper');
+	String = require('sugar').String,
+	escaper = require('escaper'),
+	block = require('@pzlr/build-core').validators;
 
 const
-	paramsStartReg = /^\s*\$p\s*=\s*(?=\{)/m,
-	defineReg = /^([bigp]-[a-z0-9][a-z0-9-_]*)(?:\s+extends\s+([bigp]-[a-z0-9][a-z0-9-_]*))?$/m,
+	paramsStartReg = /^\s*\$p\s*=\s*(?={)/m,
+	defineReg = new RegExp(`^(${block.baseBlockName})(?:\\s+extends\\s+(${block.baseBlockName}))?$`, 'm'),
 	varsReg = /\$p\.[.\w$]+/g;
 
 /**
@@ -84,27 +85,52 @@ function expandDefine(source, isMod) {
 	}
 
 	const
-		camelBlock = Sugar.String.camelize(block, false),
-		camelParent = Sugar.String.camelize(parent || '', false);
+		blockVar = `$${String.camelize(block, false)}`,
+		parentVar = `$${String.camelize(parent || '', false)}`;
+
+	const
+		paramsVar = `${blockVar}Params`,
+		blockExt = `${isMod ? parentVar : blockVar}ExtName`,
+		blockI = `${blockVar}PartialCursor`,
+		blockPartials = `${blockVar}PartialList`;
+
+	/* eslint-disable indent */
 
 	let fullDefineString = `
-${!isMod ? `$${camelBlock} = ()` : ''}
-declare($${isMod ? camelParent : camelBlock}, ${block})
+if lookup('${blockVar}') == null
+	${!isMod ? `${blockVar} = ()` : ''}
+	${blockI} = 0
+	${blockPartials} = ()
+	${!isMod ? `${blockExt} = '${parent ? parentVar : ''}'` : ''}
+	declare(${isMod ? parentVar : blockVar}, ${block})
 
-$${camelBlock}Params = ${
-		parent ? `fork($${camelParent}Params, ${paramsBlock})` : paramsBlock
-		}
+else
+	${blockI} += 1
+	push(${blockPartials}, '${block}' + ${blockI})
+
+if lookup('${paramsVar}') == null {
+	${paramsVar} = ${
+		isMod ?
+			`fork(${blockExt} && lookup(${blockExt} + '${String.camelize(mod)}') || ${parentVar}Params, ${paramsBlock})` :
+			parent ? `fork(${parentVar}Params, ${paramsBlock})` : paramsBlock
+	}
+
+} else {
+	${paramsVar} = fork(${paramsVar}, ${paramsBlock})
+}
 
 ${!isMod ? `//#include ${block}_*.styl\n` : ''}
 
-${block}($p)
-	$p = fork($${camelBlock}Params, $p)
-	${parent && !isMod ? `extends($${camelParent}, $p)` : ''}
+_${block}($p)
+	$p = fork(${paramsVar}, $p)
+	${parent && !isMod ? `extends(${parentVar}, $p)` : ''}
 `;
+
+	/* eslint-enable indent */
 
 	fullDefineString = fullDefineString
 		.split(/\r?\n|\r/)
-		.filter((s) => !Sugar.String.isBlank(s))
+		.filter((s) => !String.isBlank(s))
 		.join('\n');
 
 	if (isMod) {
@@ -117,7 +143,12 @@ ${block}($p)
 	source = source.replace(varsReg, (val) => vars[val] = val.replace(/\./g, '__'));
 	Object.keys(vars).sort().forEach((key) => fullDefineString += `\n\t${vars[key]} = ${key}`);
 
-	return source.replace(defineString, fullDefineString);
+	return `${
+		source.replace(defineString, fullDefineString)
+	}
+
+define('${block}' + (${blockI} > 1 ? ${blockI} : ''), _${block})
+`;
 }
 
 let
@@ -148,7 +179,7 @@ module.exports = (source, file) => {
 
 	let tmp;
 	cache.set(source, tmp = source.replace(
-		/@import\s+"((?:\.{1,2}\/|[igbp]-[a-z0-9][a-z0-9-]*)[^"]*)"/gm,
+		new RegExp(`@import\\s+"((?:\\.{1,2}\\/|${block.baseBlockName})[^"]*)"`, 'gm'),
 		(str, path) => `//#include ${path}`
 	));
 
