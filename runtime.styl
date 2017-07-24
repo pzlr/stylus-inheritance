@@ -1,0 +1,23 @@
+/**
+ * Extends a block with the specified constructor and parameters
+ */
+extends($obj, $p = {})
+	for $el, $i in $obj
+		for $el in lookup($el)
+			$fn = lookup($el)
+
+			if $i == 0
+				{$fn} ($p)
+
+			else
+				{$fn} ({})
+
+/**
+ * Creates a new hash table from the specified tables
+ */
+fork($objs...)
+	$res = {}
+	for $obj in $objs
+		for $key, $el in $obj
+			$res[$key] = $el
+	$res
