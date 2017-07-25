@@ -80,13 +80,14 @@ function expandDefine(source, isMod) {
 		mod = isMod && block.replace(/[^_]+/, ''),
 		modName = mod && mod.split('_')[1];
 
-	if (isMod) {
+	if (isMod && modName) {
 		addToParams(`${modName}: ${block.replace(/[^_]+/, '')}`);
 	}
 
 	const
 		id = Math.random().toString().split('.')[1],
-		blockVar = `$${String.camelize(block, false)}`,
+		blockName = String.camelize(block, false),
+		blockVar = `$${blockName}`,
 		parentVar = `$${String.camelize(parent || '', false)}`;
 
 	const
@@ -108,7 +109,7 @@ if lookup('${blockVar}') == null
 
 else
 	${blockI} += 1
-	push(${blockPartials}, '${block}' + ${blockI})
+	push(${blockPartials}, '${block}__' + ${blockI})
 
 if lookup('${paramsVar}') == null {
 	${paramsVar} = ${
@@ -121,9 +122,7 @@ if lookup('${paramsVar}') == null {
 	${paramsVar} = fork(${paramsVar}, ${paramsBlock})
 }
 
-${!isMod ? `//#include ${block}_*.styl\n` : ''}
-
-_${block}-${id}($p)
+_${block}__${id}($p)
 	$p = fork(${paramsVar}, $p)
 	${parent && !isMod ? `extends(${parentVar}, $p)` : ''}
 `;
@@ -145,11 +144,25 @@ _${block}-${id}($p)
 	source = source.replace(varsReg, (val) => vars[val] = val.replace(/\./g, '__'));
 	Object.keys(vars).sort().forEach((key) => fullDefineString += `\n\t${vars[key]} = ${key}`);
 
-	return `${
-		source.replace(defineString, fullDefineString)
-	}
+	return `${source.replace(defineString, fullDefineString)}
 
-define('${block}' + (${blockI} > 0 ? ${blockI} : ''), _${block}-${id})
+define('${block}' + (${blockI} > 0 ? '__' + ${blockI} : ''), _${block}__${id})
+
+//#label partial
+//#if +:*
+//#unless -:${blockName}
+//#include ${block}-*.styl::
+//#endunless
+//#endif
+
+//#if +:${blockName}
+//#unless -:${blockName}
+//#include ${block}-*.styl::
+//#endunless
+//#endif
+
+//#include ${block}_*.styl::
+//#endlabel
 `;
 }
 
