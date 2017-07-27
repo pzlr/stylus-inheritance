@@ -58,7 +58,7 @@ function expandDefine(source, isMod) {
 	}
 
 	const
-		[defineString, block, parent] = define,
+		[, block, parent] = define,
 		paramsStartSearch = paramsStartReg.exec(source);
 
 	function addToParams(val) {
@@ -144,7 +144,7 @@ _${block}__${id}($p)
 	source = source.replace(varsReg, (val) => vars[val] = val.replace(/\./g, '__'));
 	Object.keys(vars).sort().forEach((key) => fullDefineString += `\n\t${vars[key]} = ${key}`);
 
-	return `${source.replace(defineString, fullDefineString)}
+	return `${source.replace(defineReg, fullDefineString)}
 
 define('${block}' + (${blockI} > 0 ? '__' + ${blockI} : ''), _${block}__${id})
 
