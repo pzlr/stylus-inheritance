@@ -25,10 +25,10 @@
   },
   "dependencies": {
     "@pzlr/build-core": "^1.1.3",
-    "escaper": "^2.4.31",
+    "escaper": "^2.5.2",
     "sugar": "^2.0.1"
   },
   "devDependencies": {
-    "eslint": "^4.3.0"
+    "eslint": "^4.8.0"
   }
 }
