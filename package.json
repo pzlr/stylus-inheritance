@@ -24,11 +24,11 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@pzlr/build-core": "^1.2.0",
+    "@pzlr/build-core": "^1.4.1",
     "escaper": "^2.5.2",
     "sugar": "^2.0.1"
   },
   "devDependencies": {
-    "eslint": "^4.8.0"
+    "eslint": "^4.9.0"
   }
 }
