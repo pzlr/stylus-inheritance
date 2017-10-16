@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@pzlr/build-core@^1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@pzlr/build-core/-/build-core-1.5.0.tgz#998eac63b7a34b7ecde692eb41448571c36d5489"
+"@pzlr/build-core@^1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@pzlr/build-core/-/build-core-1.6.0.tgz#91fe8ea811f449bdce806741f04d42f52b0ff795"
   dependencies:
     collection.js "^6.1.7"
     fs-extra-promise "^1.0.1"
