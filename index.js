@@ -144,20 +144,34 @@ _${block}__${id}($p)
 	source = source.replace(varsReg, (val) => vars[val] = val.replace(/\./g, '__'));
 	Object.keys(vars).sort().forEach((key) => fullDefineString += `\n\t${vars[key]} = ${key}`);
 
+	const
+		includeBlock = `+:${blockName}`,
+		excludeBlock = `-:${blockName}`;
+
 	return `${source.replace(defineReg, fullDefineString)}
 
 define('${block}' + (${blockI} > 0 ? '__' + ${blockI} : ''), _${block}__${id})
 
 //#label partial
 //#if +:*
-//#unless -:${blockName}
+//#unless ${excludeBlock}
+//#if +:* typeof function
+//#include ${block}-\${+:*}@(.styl)::
+//#endif
+//#unless +:* typeof function
 //#include ${block}-*.styl::
+//#endunless
 //#endunless
 //#endif
 
-//#if +:${blockName}
-//#unless -:${blockName}
+//#if ${includeBlock}
+//#unless ${excludeBlock}
+//#if ${includeBlock} typeof function
+//#include ${block}-\${${includeBlock}}@(.styl)::
+//#endif
+//#unless ${includeBlock} typeof function
 //#include ${block}-*.styl::
+//#endunless
 //#endunless
 //#endif
 
