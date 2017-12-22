@@ -2,12 +2,13 @@
 # yarn lockfile v1
 
 
-"@pzlr/build-core@^1.7.0":
-  version "1.7.0"
-  resolved "https://registry.npmjs.org/@pzlr/build-core/-/build-core-1.7.0.tgz#c8ba99fcdb248246b7e667f2df1849a8896a5e15"
+"@pzlr/build-core@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/@pzlr/build-core/-/build-core-2.0.0.tgz#fea9b0325cc47808ddac8567bec2cc2d7e710c1b"
   dependencies:
-    collection.js "^6.3.12"
+    collection.js "^6.3.15"
     fs-extra-promise "^1.0.1"
+    glob-promise "^3.3.0"
     joi "^13.0.2"
     sugar "^2.0.1"
 
@@ -164,9 +165,9 @@ co@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/co/-/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
 
-collection.js@^6.3.12:
-  version "6.3.12"
-  resolved "https://registry.npmjs.org/collection.js/-/collection.js-6.3.12.tgz#d12c3c6e13c858c284aa7fd1e611814ace21bf16"
+collection.js@^6.3.15:
+  version "6.3.15"
+  resolved "https://registry.npmjs.org/collection.js/-/collection.js-6.3.15.tgz#fe0b42b76e4b4d7034c9d0a7e05269682e9e56db"
 
 color-convert@^1.0.0:
   version "1.9.0"
@@ -224,12 +225,11 @@ del@^2.0.2:
     pinkie-promise "^2.0.0"
     rimraf "^2.2.8"
 
-doctrine@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/doctrine/-/doctrine-2.0.0.tgz#c73d8d2909d22291e1a007a395804da8b665fe63"
+doctrine@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.npmjs.org/doctrine/-/doctrine-2.0.2.tgz#68f96ce8efc56cc42651f1faadb4f175273b0075"
   dependencies:
     esutils "^2.0.2"
-    isarray "^1.0.0"
 
 escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
   version "1.0.5"
@@ -246,9 +246,9 @@ eslint-scope@^3.7.1:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint@^4.11.0:
-  version "4.11.0"
-  resolved "https://registry.npmjs.org/eslint/-/eslint-4.11.0.tgz#39a8c82bc0a3783adf5a39fa27fdd9d36fac9a34"
+eslint@^4.13.1:
+  version "4.13.1"
+  resolved "https://registry.npmjs.org/eslint/-/eslint-4.13.1.tgz#0055e0014464c7eb7878caf549ef2941992b444f"
   dependencies:
     ajv "^5.3.0"
     babel-code-frame "^6.22.0"
@@ -256,7 +256,7 @@ eslint@^4.11.0:
     concat-stream "^1.6.0"
     cross-spawn "^5.1.0"
     debug "^3.0.1"
-    doctrine "^2.0.0"
+    doctrine "^2.0.2"
     eslint-scope "^3.7.1"
     espree "^3.5.2"
     esquery "^1.0.0"
@@ -265,7 +265,7 @@ eslint@^4.11.0:
     file-entry-cache "^2.0.0"
     functional-red-black-tree "^1.0.1"
     glob "^7.1.2"
-    globals "^9.17.0"
+    globals "^11.0.1"
     ignore "^3.3.3"
     imurmurhash "^0.1.4"
     inquirer "^3.0.6"
@@ -384,6 +384,10 @@ functional-red-black-tree@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/functional-red-black-tree/-/functional-red-black-tree-1.0.1.tgz#1b0ab3bd553b2a0d6399d29c0e3ea0b252078327"
 
+glob-promise@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.npmjs.org/glob-promise/-/glob-promise-3.3.0.tgz#d1eb3625c4e6dcbb9b96eeae4425d5a3b135fed2"
+
 glob@^7.0.3, glob@^7.0.5, glob@^7.1.2:
   version "7.1.2"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.2.tgz#c19c9df9a028702d678612384a6552404c636d15"
@@ -395,9 +399,9 @@ glob@^7.0.3, glob@^7.0.5, glob@^7.1.2:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
-globals@^9.17.0:
-  version "9.18.0"
-  resolved "https://registry.yarnpkg.com/globals/-/globals-9.18.0.tgz#aa3896b3e69b487f17e31ed2143d69a8e30c2d8a"
+globals@^11.0.1:
+  version "11.1.0"
+  resolved "https://registry.npmjs.org/globals/-/globals-11.1.0.tgz#632644457f5f0e3ae711807183700ebf2e4633e4"
 
 globby@^5.0.0:
   version "5.0.0"
@@ -500,7 +504,7 @@ is-resolvable@^1.0.0:
   dependencies:
     tryit "^1.0.1"
 
-isarray@^1.0.0, isarray@~1.0.0:
+isarray@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/isarray/-/isarray-1.0.0.tgz#bb935d48582cba168c06834957a54a3e07124f11"
 
