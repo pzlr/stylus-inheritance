@@ -28,8 +28,8 @@
     "sugar": "^2.0.1"
   },
   "devDependencies": {
-    "@pzlr/build-core": "^2.0.0",
-    "eslint": "^4.13.1"
+    "@pzlr/build-core": "^2.3.0",
+    "eslint": "^4.15.0"
   },
   "peerDependencies": {
     "@pzlr/build-core": "*"
