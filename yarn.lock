@@ -54,16 +54,16 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@pzlr/build-core@^2.3.0":
-  version "2.3.0"
-  resolved "https://registry.npmjs.org/@pzlr/build-core/-/build-core-2.3.0.tgz#d0ccf69e045ab6f6498c2101aa0acd14369f0540"
+"@pzlr/build-core@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@pzlr/build-core/-/build-core-2.4.0.tgz#885cb977f236a74a3d645fc895143c6bd96fc01c"
   dependencies:
     collection.js "^6.3.15"
     fs-extra-promise "^1.0.1"
     glob "^7.1.2"
     glob-promise "^3.3.0"
     is-path-inside "^1.0.1"
-    joi "^13.0.2"
+    joi "^13.1.1"
     sugar "^2.0.1"
 
 acorn-jsx@^3.0.0:
@@ -322,9 +322,9 @@ detect-file@^0.1.0:
   dependencies:
     fs-exists-sync "^0.1.0"
 
-doctrine@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.npmjs.org/doctrine/-/doctrine-2.0.2.tgz#68f96ce8efc56cc42651f1faadb4f175273b0075"
+doctrine@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/doctrine/-/doctrine-2.1.0.tgz#5cd01fc101621b42c4cd7f5d1a66243716d3f39d"
   dependencies:
     esutils "^2.0.2"
 
@@ -347,9 +347,9 @@ eslint-visitor-keys@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#3f3180fb2e291017716acb4c9d6d5b5c34a6a81d"
 
-eslint@^4.15.0:
-  version "4.15.0"
-  resolved "https://registry.npmjs.org/eslint/-/eslint-4.15.0.tgz#89ab38c12713eec3d13afac14e4a89e75ef08145"
+eslint@^4.16.0:
+  version "4.16.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.16.0.tgz#934ada9e98715e1d7bbfd6f6f0519ed2fab35cc1"
   dependencies:
     ajv "^5.3.0"
     babel-code-frame "^6.22.0"
@@ -357,7 +357,7 @@ eslint@^4.15.0:
     concat-stream "^1.6.0"
     cross-spawn "^5.1.0"
     debug "^3.1.0"
-    doctrine "^2.0.2"
+    doctrine "^2.1.0"
     eslint-scope "^3.7.1"
     eslint-visitor-keys "^1.0.0"
     espree "^3.5.2"
@@ -796,9 +796,9 @@ isobject@^2.0.0:
   dependencies:
     isarray "1.0.0"
 
-joi@^13.0.2:
-  version "13.0.2"
-  resolved "https://registry.npmjs.org/joi/-/joi-13.0.2.tgz#8cc57a573b7c0b64108fa6fd85061c20fcb0d6b0"
+joi@^13.1.1:
+  version "13.1.1"
+  resolved "https://registry.yarnpkg.com/joi/-/joi-13.1.1.tgz#1f306a5c3ded496da46629915d09e1ae3825185c"
   dependencies:
     hoek "5.x.x"
     isemail "3.x.x"
