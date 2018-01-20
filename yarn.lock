@@ -54,9 +54,9 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@pzlr/build-core@^2.4.0":
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/@pzlr/build-core/-/build-core-2.4.0.tgz#885cb977f236a74a3d645fc895143c6bd96fc01c"
+"@pzlr/build-core@^2.4.1":
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/@pzlr/build-core/-/build-core-2.4.1.tgz#ce75380b66788dc45ea063893468e5424ab8e171"
   dependencies:
     collection.js "^6.3.15"
     fs-extra-promise "^1.0.1"

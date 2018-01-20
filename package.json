@@ -29,7 +29,7 @@
     "sugar": "^2.0.1"
   },
   "devDependencies": {
-    "@pzlr/build-core": "^2.4.0",
+    "@pzlr/build-core": "^2.4.1",
     "babel-eslint": "^8.2.1",
     "eslint": "^4.16.0"
   },
