@@ -24,14 +24,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "escaper": "^2.5.2",
-    "find-node-modules": "^1.0.4",
-    "sugar": "^2.0.1"
+    "escaper": "^2.5.3",
+    "sugar": "^2.0.4"
   },
   "devDependencies": {
-    "@pzlr/build-core": "^2.4.2",
+    "@pzlr/build-core": "^2.6.0",
     "babel-eslint": "^8.2.1",
-    "eslint": "^4.16.0"
+    "eslint": "^4.17.0"
   },
   "peerDependencies": {
     "@pzlr/build-core": "*"
