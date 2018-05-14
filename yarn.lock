@@ -78,7 +78,7 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@pzlr/build-core@^2.7.3":
+"@pzlr/build-core@^2.8.0":
   version "2.8.0"
   resolved "https://registry.npmjs.org/@pzlr/build-core/-/build-core-2.8.0.tgz#eed78942cfeda93398611e94953032ed57d0393f"
   dependencies:
