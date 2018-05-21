@@ -25,7 +25,8 @@
   },
   "dependencies": {
     "escaper": "^2.5.3",
-    "sugar": "^2.0.4"
+    "sugar": "^2.0.4",
+    "upath": "^1.1.0"
   },
   "devDependencies": {
     "@pzlr/build-core": "^2.8.6",
