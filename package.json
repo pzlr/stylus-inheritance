@@ -30,8 +30,8 @@
   },
   "devDependencies": {
     "@pzlr/build-core": "^2.8.9",
-    "babel-eslint": "^9.0.0",
-    "eslint": "^5.5.0"
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.6.1"
   },
   "peerDependencies": {
     "@pzlr/build-core": "*"
