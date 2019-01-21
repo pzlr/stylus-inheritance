@@ -9,7 +9,7 @@ Preloader for *.styl files to reduce LOC number needed for inheritance.
 **/b-button.styl**
 
 ```styl
-@import "../i-block/i-block.styl"
+@import "super/i-block/i-block.styl"
 
 $p = {
  size: (xxs 0.6) (xs 0.8) (s 0.9) (m 1) (l 1.2) (xl 1.4) (xxl 1.8)
