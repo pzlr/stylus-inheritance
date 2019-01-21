@@ -1,7 +1,7 @@
 stylus-inheritance-loader
 =========================
 
-Preloader for *.interface.styl files to reduce LOC number needed for inheritance.
+Preloader for *.styl files to reduce LOC number needed for inheritance.
 
 ## Examples
 ### Block
@@ -9,7 +9,7 @@ Preloader for *.interface.styl files to reduce LOC number needed for inheritance
 **/i-block.styl**
 
 ```styl
-@import "../i-base/i-base.interface.styl"
+@import "../i-base/i-base.styl"
 
 $p = {
  size: (xxs 0.6) (xs 0.8) (s 0.9) (m 1) (l 1.2) (xl 1.4) (xxl 1.8),
