@@ -17,7 +17,7 @@ $p = {
  color: #000
 }
 
-b-button extends i-base
+b-button extends i-block
   &__content
     background $p.background
     color $p.color
