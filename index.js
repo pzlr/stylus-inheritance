@@ -10,7 +10,9 @@ const
 	isModRgxp = /(_[a-z0-9-]+_[a-z0-9-]+).styl$/;
 
 let
-	outputCache = new Map(),
+	outputCache = new Map();
+
+const
 	pendingFiles = new Map();
 
 /**
@@ -30,7 +32,7 @@ function configure(params = {}) {
 		const cacheKey = file;
 
 		// Wait for pending tasks to finish to prevent cache data race
-		await pendingFiles.get(cacheKey) ?? Promise.resolve();
+		await pendingFiles.get(cacheKey);
 
 		if (outputCache.has(cacheKey)) {
 			return outputCache.get(cacheKey);
@@ -73,8 +75,9 @@ Object.assign(module.exports, {
 });
 
 /**
- * Removes specified files from the cache.
+ * Removes the specified files from the cache.
  * Should be used to remove modified files in webpack watch mode.
+ *
  * @param {Iterable<string>} files
  * @returns {void}
  */
